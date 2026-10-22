@@ -1,0 +1,21 @@
+node_modules/
+android/
+dist/
+build/
+*.apk
+*.aab
+
+# Env
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Capacitor
+android/app/build/
+
+Security Keys
+Security Keys.apk

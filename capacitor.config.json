@@ -1,0 +1,15 @@
+{
+  "appId": "com.cofre.seguro",
+  "appName": "Security Keys",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "backgroundColor": "#121212"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#121212"
+    }
+  }
+}

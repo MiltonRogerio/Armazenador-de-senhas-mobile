@@ -1,0 +1,23 @@
+{
+  "name": "armazenador-de-senhas-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:apk": "npx cap copy android && cd android && ./gradlew assembleDebug && cd .. && mkdir -p \"Security Keys\" && mv android/app/build/outputs/apk/debug/app-debug.apk \"Security Keys/Security-Keys.apk\"",
+    "build:apk:win": "npx cap copy android && cd android && gradlew assembleDebug && cd .. && if not exist \"Security Keys\" mkdir \"Security Keys\" && move /Y android\\app\\build\\outputs\\apk\\debug\\app-debug.apk \"Security Keys\\Security-Keys.apk\"",
+    "generate:icons": "npx capacitor-assets generate --android",
+    "setup:android": "npx cap add android && npm run generate:icons && npx cap copy android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/core": "latest",
+    "@capacitor/filesystem": "^8.1.5",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/share": "^8.0.3",
+    "crypto-js": "^4.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "latest"
+  }
+}

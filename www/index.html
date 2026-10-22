@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <div id="tela-selecionar">
+    <h2>Meus Cofres</h2>
+    <p>Selecione um cofre</p>
+    <div id="lista-cofres"></div>
+    <button onclick="irParaRegistro()" style="width:100%!important;">+ Criar novo cofre</button>
+    
+    <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
+      <button onclick="exportarCofre()" style="width:100%!important; background:#2e7d32;">📤 EXPORTAR COFRE (Backup)</button>
+      <button onclick="importarCofre()" class="btn-sec" style="width:100%!important; margin-top:10px;">📥 IMPORTAR COFRE</button>
+    </div>
+
+    <button onclick="verRaw()" style="margin-top:20px;opacity:.3;font-size:12px">Ver dados brutos (debug)</button>
+  </div>
+  <div id="tela-login" style="display:none;">
+    <h2 id="cofre-selecionado-nome"></h2>
+    <p>Digite a keymaster</p>
+    <form id="form-login">
+      <input type="password" id="login-senha" placeholder="Senha do cofre" required>
+      <button type="submit">Desbloquear</button>
+      <div id="msg-erro-login"></div>
+    </form>
+    <button class="btn-sec" onclick="voltarParaSelecao()" style="width:100%!important; margin-top:10px;">Voltar</button>
+  </div>
+  <div id="tela-registro" style="display:none;">
+    <h2>Novo Cofre</h2>
+    <p>Crie sua keymaster</p>
+    <form id="form-registro">
+      <input type="text" id="reg-usuario" placeholder="Nome do cofre" required>
+      <input type="password" id="reg-senha" placeholder="Senha" required>
+      <input type="password" id="reg-confirmar" placeholder="Confirmar senha" required>
+      <button type="submit">Criar cofre</button>
+      <div id="msg-erro"></div>
+    </form>
+    <button class="btn-sec" onclick="voltarParaSelecao()" style="width:100%!important; margin-top:10px;">Voltar</button>
+  </div>
+  <div id="tela-app" style="display:none;">
+    <div class="top-bar">
+      <h2>Cofre</h2>
+      <button id="btn-logout" class="btn-sec">Sair</button>
+    </div>
+    <div class="tabs">
+      <button id="tab-lista" class="tab active" onclick="mostrarAba('lista')">Senhas</button>
+      <button id="tab-add" class="tab" onclick="mostrarAba('add')">Adicionar</button>
+    </div>
+    <div id="aba-lista"><div id="lista-senhas"></div></div>
+    <div id="aba-add" style="display:none;">
+      <form id="form-add">
+        <input type="text" id="input-site" placeholder="Site / App" required>
+        <input type="text" id="input-login" placeholder="Usuário / Email">
+        <div class="input-group">
+          <input type="text" id="input-senha" placeholder="Senha" required>
+          <div class="dropdown-gen">
+            <button type="button" id="btn-gerar">Gerar</button>
+            <div id="dropdown-gerar" class="dropdown-content">
+              <button type="button" onclick="gerarFraca()">Fraca (8)</button>
+              <button type="button" onclick="gerarMedia()">Média (12)</button>
+              <button type="button" onclick="gerarForte()">Forte (16)</button>
+            </div>
+          </div>
+        </div>
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="modal-confirm" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:99999; justify-content:center; align-items:center;">
+  <div style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); padding:20px; border-radius:12px; width:300px; text-align:center;">
+    <p id="modal-text" style="margin-bottom:16px; text-align:center;"></p>
+    <div style="display:flex; gap:8px;">
+      <button id="modal-cancel" class="btn-sec" style="flex:1;">Cancelar</button>
+      <button id="modal-ok" style="flex:1; background:#ff4444; color:white;">Apagar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="./backup.js"></script>
+<script type="module" src="./renderer-mobile.js"></script>
+<div id="sk-modal" class="sk-hidden">
+  <div class="sk-box">
+    <div class="sk-icon">🔑</div>
+    <h2 id="sk-title"></h2>
+    <p id="sk-desc"></p>
+    <input type="password" id="sk-input" placeholder="••••••••">
+    <div class="sk-btns"><button id="sk-cancel">Cancelar</button><button id="sk-confirm">Confirmar</button></div>
+  </div>
+</div>
+<div id="sk-toast" class="sk-hidden"></div>
+</body>
+</html>
