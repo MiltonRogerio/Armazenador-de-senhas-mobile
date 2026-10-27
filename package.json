@@ -1,7 +1,34 @@
 {
   "name": "armazenador-de-senhas-mobile",
+  "displayName": "Security Keys Mobile",
   "version": "1.0.0",
-  "private": true,
+  "description": "Cofre de senhas 100% offline-first para Android. Criptografia AES-256-GCM nativa, zero rastreamento, zero nuvem.",
+  "private": false,
+  "author": {
+    "name": "Milton Rogério De Souza Nogueira Junior",
+    "email": "miltonrogerio2267@gmail.com",
+    "url": "https://github.com/MiltonRogerio"
+  },
+  "license": "MIT",
+  "copyright": "Copyright (c) 2026 Milton Rogério De Souza Nogueira Junior",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MiltonRogerio/Armazenador-de-senhas-mobile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MiltonRogerio/Armazenador-de-senhas-mobile/issues"
+  },
+  "homepage": "https://github.com/MiltonRogerio/Armazenador-de-senhas-mobile#readme",
+  "keywords": [
+    "password-manager",
+    "offline-first",
+    "capacitor",
+    "android",
+    "security",
+    "aes-gcm",
+    "privacy",
+    "vault"
+  ],
   "scripts": {
     "build:apk": "npx cap copy android && cd android && ./gradlew assembleDebug && cd .. && mkdir -p \"Security Keys\" && mv android/app/build/outputs/apk/debug/app-debug.apk \"Security Keys/Security-Keys.apk\"",
     "build:apk:win": "npx cap copy android && cd android && gradlew assembleDebug && cd .. && if not exist \"Security Keys\" mkdir \"Security Keys\" && move /Y android\\app\\build\\outputs\\apk\\debug\\app-debug.apk \"Security Keys\\Security-Keys.apk\"",
@@ -13,8 +40,7 @@
     "@capacitor/core": "latest",
     "@capacitor/filesystem": "^8.1.5",
     "@capacitor/preferences": "^8.0.1",
-    "@capacitor/share": "^8.0.3",
-    "crypto-js": "^4.2.0"
+    "@capacitor/share": "^8.0.3"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",

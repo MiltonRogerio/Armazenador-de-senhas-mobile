@@ -1,3 +1,5 @@
+import { encrypt, decrypt } from "./crypto-mobile.js";
+
 const FILE_NAME = 'cofre-seguro-backup.txt';
 
 function skPrompt(titulo, desc){
@@ -32,11 +34,14 @@ async function exportarCofre(){
     let all = {};
     for(let k of keys){ const v = await Pref.get({key:k}); all[k]=v.value; }
     if(!Object.keys(all).length){ skAlert('Cofre vazio!'); return; }
-    const cripto = CryptoJS.AES.encrypt(JSON.stringify(all), senha).toString();
+    
+    // AGORA 100% OFFLINE - usa seu crypto-mobile.js
+    const cripto = await encrypt(JSON.stringify(all), senha);
+    
     const Fs = Capacitor.Plugins.Filesystem;
     await Fs.writeFile({ path: FILE_NAME, data: cripto, directory: 'DOCUMENTS', encoding: 'utf8' });
     skAlert('✅ Salvo em Documentos > '+FILE_NAME);
-  } catch(e){ skAlert('Erro: '+e.message); }
+  } catch(e){ skAlert('Erro: '+e.message); console.error(e); }
 }
 
 async function importarCofre(){
@@ -47,7 +52,7 @@ async function importarCofre(){
   input.onchange = async(ev)=>{
     try{
       const text = await ev.target.files[0].text();
-      const dec = CryptoJS.AES.decrypt(text, senha).toString(CryptoJS.enc.Utf8);
+      const dec = await decrypt(text, senha);
       if(!dec) throw new Error();
       const dados = JSON.parse(dec);
       const Pref = Capacitor.Plugins.Preferences;
@@ -58,3 +63,6 @@ async function importarCofre(){
   };
   input.click();
 }
+
+window.exportarCofre = exportarCofre;
+window.importarCofre = importarCofre;
